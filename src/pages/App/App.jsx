@@ -8,6 +8,7 @@ import "./App.css";
 import AuthPage from "../AuthPage/AuthPage";
 import BootstrapNavbar from "../../components/BootstrapNavbar/BootstrapNavbar";
 import MainPage from "../MainPage/MainPage";
+import StockSearchPage from "../StockSearchPage/StockSearchPage";
 
 export default function App() {
   const [user, setUser] = useState(getUser());
@@ -22,6 +23,7 @@ export default function App() {
               <Routes>
                 {/* Route components in here */}
                 <Route path="/" element={<MainPage />} />
+                <Route path="/search" element={<StockSearchPage />} />
               </Routes>
             </>
           ) : (

@@ -16,3 +16,24 @@ export async function getStock(symbol) {
   }
   return stock;
 }
+
+export async function search(searchTerm) {
+  const searchResults = await stocksAPI.search(searchTerm);
+  console.log("searching...");
+  console.log(searchResults);
+  var retVal = searchResults.bestMatches.map(resultStock => {
+    return {
+        symbol: resultStock["1. symbol"],
+        name: resultStock["2. name"],
+        type: resultStock["3. type"],
+        region: resultStock["4. region"],
+        marketOpen: resultStock["5. marketOpen"],
+        marketClose: resultStock["6. marketClose"],
+        timezone: resultStock["7. timezone"],
+        currency: resultStock["8. currency"],
+        matchScore: resultStock["9. matchScore"],
+     }
+  });
+  console.log(retVal);
+  return retVal;
+}

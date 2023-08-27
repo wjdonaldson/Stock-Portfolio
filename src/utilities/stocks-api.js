@@ -5,6 +5,6 @@ export function getStock(symbol) {
   return sendRequest(`${BASE_URL}function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${process.env.API_KEY}`)
 }
 
-
-// var url = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=demo';
-
+export function search(searchTerm) {
+  return sendRequest(`${BASE_URL}function=SYMBOL_SEARCH&keywords=${searchTerm}&apikey=${process.env.API_KEY}`)
+}

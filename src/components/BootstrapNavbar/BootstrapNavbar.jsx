@@ -22,6 +22,9 @@ export default function BootstrapNavbar({user, setUser}) {
               <Link className="nav-link" to="/">
                 Main
               </Link>
+              <Link className="nav-link" to="/search">
+                Stock Search
+              </Link>
               <Link className="nav-link" onClick={handleLogOut}>
                 Log Out
               </Link>

@@ -1,6 +1,6 @@
+import { useState, useEffect } from "react";
 import * as usersService from "../../utilities/users-service"
 import * as stocksService from "../../utilities/stocks-service"
-import { useState, useEffect } from "react";
 import StockList from "../../components/StockList/StockList";
 
 export default function MainPage() {
@@ -26,7 +26,6 @@ export default function MainPage() {
   return (
     <>
       <h1>MainPage</h1>
-      <button onClick={handleCheckToken}>Check When My Login Expires</button>
       <StockList stocks={stocks} activeStock={activeStock} setActiveStock={setActiveStock} />
     </>
   );
