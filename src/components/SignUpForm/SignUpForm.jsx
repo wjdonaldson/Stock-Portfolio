@@ -24,14 +24,9 @@ export default class SignUpForm extends Component {
     try {
       const { name, email, password } = this.state;
       const formData = { name, email, password };
-      // The promise returned by the signUp service
-      // method will resolve to the user object included
-      // in the payload of the JSON Web Token (JWT)
       const user = await signUp(formData);
       this.props.setUser(user);
     } catch {
-      // An error occurred
-      // Probably due to a duplicate email
       this.setState({ error: "Sign Up Failed - Try Again" });
     }
   };
@@ -40,7 +35,7 @@ export default class SignUpForm extends Component {
     const disable = this.state.password !== this.state.confirm;
     return (
         <Form autoComplete="off" onSubmit={this.handleSubmit}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Label>Name</Form.Label>
             <Form.Control
               type="text"
@@ -71,10 +66,11 @@ export default class SignUpForm extends Component {
               placeholder="Password"
               value={this.state.password}
               onChange={this.handleChange}
+              autoComplete="off"
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Group className="mb-3" controlId="formBasicConfirm">
             <Form.Label>Confirm</Form.Label>
             <Form.Control
               type="password"
@@ -82,10 +78,11 @@ export default class SignUpForm extends Component {
               placeholder="Confirm password"
               value={this.state.confirm}
               onChange={this.handleChange}
+              autoComplete="off"
               required
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" disabled={disable.toString()}>
             Submit
           </Button>
         </Form>

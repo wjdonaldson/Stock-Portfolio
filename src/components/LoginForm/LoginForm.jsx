@@ -31,7 +31,7 @@ export default function LoginForm({ setUser }) {
 
   return (
     <>
-      <Form /*autoComplete="off"*/ onSubmit={handleSubmit}>
+      <Form autoComplete="on" onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -40,6 +40,7 @@ export default function LoginForm({ setUser }) {
             placeholder="Enter email"
             value={credentials.email}
             onChange={handleChange}
+            autoComplete="on"
             required
           />
         </Form.Group>
@@ -52,6 +53,7 @@ export default function LoginForm({ setUser }) {
             placeholder="Password"
             value={credentials.password}
             onChange={handleChange}
+            autoComplete="on"
             required
           />
         </Form.Group>

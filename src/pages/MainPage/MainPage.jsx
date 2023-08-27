@@ -9,20 +9,7 @@ export default function MainPage() {
 
   useEffect(function () {
     async function getStock() {
-      const stockQuote = await stocksService.getStock();
-      const stock = {
-        symbol: stockQuote["Global Quote"]["01. symbol"],
-        open: stockQuote["Global Quote"]["02. open"],
-        high: stockQuote["Global Quote"]["03. high"],
-        low: stockQuote["Global Quote"]["04. low"],
-        price: stockQuote["Global Quote"]["05. price"],
-        volume: stockQuote["Global Quote"]["06. volume"],
-        latestTradingDay: stockQuote["Global Quote"]["07. latest trading day"],
-        previousClose: stockQuote["Global Quote"]["08. previous close"],
-        change: stockQuote["Global Quote"]["09. change"],
-        changePercent: stockQuote["Global Quote"]["10. change percent"]
-      }
-        // 01. symbol, 02. open, 03. high, 04. low, 05. price, 06. volume, 07. latest trading day, 08. previous close, 09. change, 10. change percent
+      const stock = await stocksService.getStock('IBM');
       setActiveStock(stock);
       var newStocks = [];
       newStocks.push(stock);
