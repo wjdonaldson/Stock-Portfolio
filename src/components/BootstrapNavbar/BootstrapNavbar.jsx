@@ -16,7 +16,7 @@ export default function BootstrapNavbar({user, setUser}) {
       <Navbar.Brand href="#home" className="ms-2">Stock Portfolio</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="me-auto">
+        {/* <Nav className="me-auto">
           {user && user.name ? (
             <>
               <Link className="nav-link" to="/">
@@ -34,13 +34,22 @@ export default function BootstrapNavbar({user, setUser}) {
               Sign In
             </Link>
           )}
-        </Nav>
+        </Nav> */}
         <Nav className="ms-auto">
           {user && user.name ? (
+            <>
             <Navbar.Text className="me-3">
-            Welcome, {user.name}
-          </Navbar.Text>
-          ) : ("")}
+              Welcome, {user.name}
+            </Navbar.Text>
+            <Link className="nav-link" onClick={handleLogOut}>
+              Log Out
+            </Link>
+            </>
+        ) : (
+          <Link className="nav-link" to="/">
+            Sign In
+          </Link>
+        )}
         </Nav>
       </Navbar.Collapse>
     </Navbar>

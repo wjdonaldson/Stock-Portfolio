@@ -19,8 +19,6 @@ export async function getStock(symbol) {
 
 export async function search(searchTerm) {
   const searchResults = await stocksAPI.search(searchTerm);
-  console.log("searching...");
-  console.log(searchResults);
   var retVal = searchResults.bestMatches.map(resultStock => {
     return {
         symbol: resultStock["1. symbol"],
@@ -34,6 +32,7 @@ export async function search(searchTerm) {
         matchScore: resultStock["9. matchScore"],
      }
   });
-  console.log(retVal);
+  // Only show results that are in US dollars
+  // return retVal.filter((stock) => stock.currency === 'USD');
   return retVal;
 }

@@ -4,19 +4,21 @@ export default function StockSearchListItem({ stock, activeStock, setActiveStock
   return (
     <Card style={{ width: '18rem' }}>
       <Card.Body>
-        {/* <Card.Title>Card Title</Card.Title> */}
-        <Card.Text>
-          <p>Symbol: {stock.symbol}</p>
-          <p>name: {stock.name}</p>
-          <p>type: {stock.type}</p>
-          <p>region: {stock.region}</p>
+        <Card.Title>Symbol: {stock.symbol}</Card.Title>
+        <Card.Text><b>Name:</b> {stock.name}</Card.Text>
+          {/* <div><b>Type:</b> {stock.type}</div>
+          <div><b>Region:</b> {stock.region}</div>
           <p>marketOpen: {stock.marketOpen}</p>
           <p>marketClose: {stock.marketClose}</p>
           <p>timezone: {stock.timezone}</p>
           <p>currency: {stock.currency}</p>
-          <p>matchScore: {stock.matchScore}</p>
-        </Card.Text>
-        <Button variant="primary">Select</Button>
+          <p>matchScore: {stock.matchScore}</p> */}
+        <Button 
+          variant="primary"
+          onClick={() => setActiveStock(stock)}
+        >
+          Select
+        </Button>
       </Card.Body>
     </Card>
   );

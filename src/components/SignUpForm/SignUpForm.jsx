@@ -82,7 +82,8 @@ export default class SignUpForm extends Component {
               required
             />
           </Form.Group>
-          <Button variant="primary" type="submit" disabled={disable.toString()}>
+          {/* <Button variant="primary" type="submit" disabled={disable.toString()}> */}
+          <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>

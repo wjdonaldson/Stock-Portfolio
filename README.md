@@ -1,18 +1,30 @@
-# MERN-Stack Infrastructure
+# Stock Portfolio (GA SEI Project 4)
 
-Clone this repo to provide the starter code for a comprehensive MERN-Stack project including token-based authentication.
+Contains a description of what the app does and optional background info.
 
+## Screenshots
+![Main Page](ss1.png)
+![Chart Page](ss2.png)
 
-## .env set-up
+## Technologies Used
+* MERN Stack
+    * MongoDB/Mongoose
+    * Express
+    * React
+    * Node
+* React-Bootstrap
+* Alpha Vantage API for stock information
+* Victory data visualizations for React
 
-create a .env file with these fields
-```
-DATABASE_URL=<your mongoDB Atlas connection string>
-SECRET=<a string with no spaces to verify your JWT tokens>
-```
+## Getting Started
 
-## Starting Up the Project
-- install all needed packages with `npm install`
-- open up two terminal tabs
-    - run express on your backend tab with `nodemon server`
-    - run the react front-end with the command `npm start` on the other tab
+A link to the deployed app (Heroku)
+
+### Trello Board:
+https://trello.com/invite/b/vDOWYeIB/ATTI53d9800ea27168f8030767950fa4f9b25C1F0930/stock-portfolio-project-4
+
+### GitHub Repo:
+https://github.com/wjdonaldson/Stock-Portfolio
+
+## Next Steps
+Planned future enhancements (icebox items).
