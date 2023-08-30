@@ -1,6 +1,6 @@
 import * as stocksAPI from './stocks-api';
 
-export async function getStock(symbol) {
+export async function getStockQuote(symbol) {
   const stockQuote = await stocksAPI.getStock(symbol);
   const stock = {
         symbol: stockQuote["Global Quote"]["01. symbol"],
@@ -35,4 +35,18 @@ export async function search(searchTerm) {
   // Only show results that are in US dollars
   // return retVal.filter((stock) => stock.currency === 'USD');
   return retVal;
+}
+
+export async function getStock(symbol) {
+  const stock = await stocksAPI.getStock(symbol);
+  if (stock) {
+    return stock;
+  }
+}
+
+export async function create(stock) {
+  const newStock = await stocksAPI.create(stock);
+  if (newStock) {
+    return newStock;
+  }
 }

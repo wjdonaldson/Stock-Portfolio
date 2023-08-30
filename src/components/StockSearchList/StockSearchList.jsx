@@ -12,7 +12,7 @@ export default function StockSearchList({ searchStocks, activeStock, setActiveSt
 
   return (
     <>
-      { searchStocks ? stockSearchList : ""}
+      { searchStocks ? stockSearchList : (<h2>Loading...</h2>)}
     </>
   );
 }

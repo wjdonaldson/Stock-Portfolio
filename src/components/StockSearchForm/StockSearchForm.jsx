@@ -36,7 +36,7 @@ export default function StockSearchForm({setSearchStocks}) {
             required
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" size="sm">
           Search
         </Button>
       </Form>
