@@ -1,7 +1,7 @@
 import * as stocksAPI from './stocks-api';
 
 export async function getStockQuote(symbol) {
-  const stockQuote = await stocksAPI.getStock(symbol);
+  const stockQuote = await stocksAPI.getStockQuote(symbol);
   const stock = {
         symbol: stockQuote["Global Quote"]["01. symbol"],
         open: stockQuote["Global Quote"]["02. open"],

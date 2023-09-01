@@ -4,13 +4,13 @@ import StockSearchList from "../../components/StockSearchList/StockSearchList"
 
 export default function StockSearchPage({handleNewStockInterest}) {
   const [searchStocks, setSearchStocks] = useState(null);
-  const [activeStock, setActiveStock] = useState(null);
+  // const [activeStock, setActiveStock] = useState(null);
 
-  useEffect(function () {
-    if (activeStock) {
-      handleNewStockInterest(activeStock);
-    }
-  }, [activeStock]);
+  // useEffect(function () {
+  //   if (activeStock) {
+  //     handleNewStockInterest(activeStock);
+  //   }
+  // }, [activeStock]);
 
   return (
     <>
@@ -18,8 +18,7 @@ export default function StockSearchPage({handleNewStockInterest}) {
       {searchStocks && 
       <StockSearchList 
         searchStocks={searchStocks} 
-        activeStock={activeStock} 
-        setActiveStock={setActiveStock}
+        handleNewStockInterest={handleNewStockInterest}
       />}
     </>
   );

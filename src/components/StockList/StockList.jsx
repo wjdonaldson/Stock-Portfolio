@@ -1,6 +1,6 @@
 import StockListItem from "../StockListItem/StockListItem";
 
-export default function StockList({ stocks, activeStock, setActiveStock, handleDeleteStockInterest }) {
+export default function StockList({ stocks, activeStock, setActiveStock, handleDeleteStockInterest, handleShowStockBuy }) {
   
   const stockList = stocks.map((stock, idx) => {
     if (stock) {
@@ -10,6 +10,7 @@ export default function StockList({ stocks, activeStock, setActiveStock, handleD
           activeStock={activeStock}
           setActiveStock={setActiveStock}
           handleDeleteStockInterest={handleDeleteStockInterest}
+          handleShowStockBuy={handleShowStockBuy}
           key={idx}
         />
       )

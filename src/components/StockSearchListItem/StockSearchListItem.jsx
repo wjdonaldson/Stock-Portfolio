@@ -1,6 +1,6 @@
 import { Button, Card } from "react-bootstrap";
 
-export default function StockSearchListItem({ stock, activeStock, setActiveStock}) {
+export default function StockSearchListItem({ stock, handleNewStockInterest}) {
   return (
     // <Card style={{ width: '25vw' }}>
     <Card>
@@ -17,7 +17,7 @@ export default function StockSearchListItem({ stock, activeStock, setActiveStock
         <Button 
           size="sm"
           variant="primary"
-          onClick={() => setActiveStock(stock)}
+          onClick={() => handleNewStockInterest(stock)}
         >
           Select
         </Button>

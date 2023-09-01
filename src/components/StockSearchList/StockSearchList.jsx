@@ -1,11 +1,10 @@
 import StockSearchListItem from "../StockSearchListItem/StockSearchListItem";
 
-export default function StockSearchList({ searchStocks, activeStock, setActiveStock }) {
+export default function StockSearchList({ searchStocks, handleNewStockInterest }) {
   const stockSearchList = searchStocks.map((stock, idx) => (
     <StockSearchListItem
       stock={stock}
-      activeStock={activeStock}
-      setActiveStock={setActiveStock}
+      handleNewStockInterest={handleNewStockInterest}
       key={idx}
     />
   ));

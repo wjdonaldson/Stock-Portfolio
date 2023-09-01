@@ -2,20 +2,23 @@ import { useState, useEffect } from "react";
 // import * as usersService from "../../utilities/users-service"
 import * as stocksService from "../../utilities/stocks-service"
 import * as interestListService from "../../utilities/interestList-service"
+import * as portfolioService from "../../utilities/portfolios-service"
 import StockSearchPage from "../StockSearchPage/StockSearchPage";
+import PortfolioPage from "../PortfolioPage/PortfolioPage";
 import StockList from "../../components/StockList/StockList";
+import StockBuyModal from "../../components/StockBuyModal/stockBuyModal";
 import { Col } from "react-bootstrap";
 
 export default function MainPage() {
   const [stocks, setStocks] = useState([]);
   const [activeStock, setActiveStock] = useState(null);
+  const [stockBuyModalShow, setStockBuyModalShow] = useState(false);
+  const [stockToBuy, setStockToBuy] = useState({});
+  const [portfolio, setPortfolio] = useState(null);
 
   useEffect(function () {
     async function getInterestList() {
       const interestList = await interestListService.getInterestList();
-      console.log(`getInterestList got: ${interestList}`);
-      console.log(interestList.user);
-      console.log(interestList.stocks);
       if (!interestList) {
         var result = await interestListService.createInterestList();
         console.log(`result = ${result}`);
@@ -23,28 +26,27 @@ export default function MainPage() {
       setStocks(interestList.stocks);
     }
     getInterestList();
+
+    async function getPortfolio() {
+      const userPortfolio = await portfolioService.getPortfolio();
+      if (!userPortfolio) {
+        var result = await portfolioService.createPortfolio();
+        console.log(`result = ${result}`);
+      }
+      setPortfolio(userPortfolio);
+    }
+    getPortfolio();
   }, []);
 
   async function handleNewStockInterest(stockSearch) {
     let stock = null;
     try {
-      console.log(stockSearch);
       stock = await stocksService.create(stockSearch);
-      console.log('Created stock:');
-      console.log(stock);
       await interestListService.addStock(stock);
     }
     catch (e) {
       alert(e);
     }
-
-    // console.log(stock);
-    // console.log('Before getStockQuote');
-    // const stockQuote = await stocksService.getStockQuote(stock.symbol);
-    // console.log('After getStockQuote');
-    // console.log(stockQuote);
-    // let newStock = {...stockSearch, ...stockQuote};
-    // console.log(newStock);
     let newStock = stock;
     var newStocks = stocks;
     newStocks.push(newStock);
@@ -64,6 +66,32 @@ export default function MainPage() {
     }
   }
 
+  async function handleShowStockBuy(stockSearch) {
+    try {
+      setStockToBuy({...stockSearch, ...await stocksService.getStockQuote(stockSearch.symbol)});
+      setStockBuyModalShow(true);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  async function handleStockBuy(stockToBuy, quantity) {
+    try {
+      let purchase = {
+        stock: stockToBuy,
+        quantity: quantity,
+        buyPrice: stockToBuy.price,
+        buyDate: new Date()
+      }
+      const newPortfolio = await portfolioService.addPurchase(purchase);
+      console.error('just testing');
+      console.log(newPortfolio);
+      setPortfolio(newPortfolio);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
   return (
     <>
       <Col sm={12} md={4}>
@@ -76,11 +104,22 @@ export default function MainPage() {
           activeStock={activeStock} 
           setActiveStock={setActiveStock}
           handleDeleteStockInterest={handleDeleteStockInterest}
+          handleShowStockBuy={handleShowStockBuy}
         />
       </Col>
       <Col sm={12} md={4}>
         <h3>Portfolio</h3>
+        <PortfolioPage portfolio={portfolio} />
       </Col>
+
+      { stockToBuy && 
+        <StockBuyModal
+          stockBuyModalShow={stockBuyModalShow}
+          setStockBuyModalShow={setStockBuyModalShow}
+          stockQuote={stockToBuy}
+          handleStockBuy={handleStockBuy}
+        />
+      }
     </>
   );
 }

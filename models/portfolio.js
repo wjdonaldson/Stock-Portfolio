@@ -41,4 +41,5 @@ const portfolioSchema = new Schema({
   timestamps: true
 });
 
+module.exports = mongoose.model('Purchase', purchaseSchema);
 module.exports = mongoose.model('Portfolio', portfolioSchema);

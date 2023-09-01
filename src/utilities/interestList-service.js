@@ -2,10 +2,6 @@ import * as interestListAPI from './interestList-api';
 
 export async function getInterestList() {
   const interestList = await interestListAPI.getInterestList();
-  console.log('interestListAPI.getInterestList() got:');
-  console.log(interestList);
-  console.log(interestList.user);
-  console.log(interestList.stocks);
   if (interestList) {
     return interestList;
   }
