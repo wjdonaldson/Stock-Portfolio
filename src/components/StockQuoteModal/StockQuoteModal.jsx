@@ -1,4 +1,4 @@
-import { Button, Modal, Table } from "react-bootstrap";
+import { Button, Modal, Table, Row, Col } from "react-bootstrap";
 
 export default function StockQuoteModal({modalShow, setModalShow, stockQuote}) {
   return (
@@ -32,7 +32,13 @@ export default function StockQuoteModal({modalShow, setModalShow, stockQuote}) {
         </Table>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => setModalShow(false)}>Close</Button>
+        <Row className="align-items-center">
+          <Col xs="auto" className="my-1">
+            <Button onClick={() => setModalShow(false)}>
+              Close
+            </Button>
+          </Col>
+        </Row>
       </Modal.Footer>
     </Modal>
   );

@@ -1,6 +1,13 @@
-import { Button, Modal, Table } from "react-bootstrap";
+import { useRef } from "react";
+import { Button, Modal, Table, Form, Row, Col } from "react-bootstrap";
 
 export default function StockBuyModal({stockBuyModalShow, setStockBuyModalShow, stockQuote, handleStockBuy}) {
+  const quantity = useRef(1);
+
+  function handleChange(evt) {
+    quantity.current = evt.target.value;
+  }
+
   return (
     <Modal
       show={stockBuyModalShow}
@@ -32,16 +39,35 @@ export default function StockBuyModal({stockBuyModalShow, setStockBuyModalShow, 
         </Table>
       </Modal.Body>
       <Modal.Footer>
-        <span>Are you sure you want to buy this stock?</span>
-        <Button onClick={() => {
-          handleStockBuy(stockQuote, 1);
-          setStockBuyModalShow(false);
-        }}>
-          Buy
-        </Button>
-        <Button onClick={() => setStockBuyModalShow(false)}>
-          Cancel
-        </Button>
+        <Form>
+          <Row className="align-items-center">
+            <Col xs="auto" className="my-1">
+              <Form.Label htmlFor="qty">
+                Quantity
+              </Form.Label>
+            </Col>
+            <Col xs={3} className="my-1">
+              <Form.Control 
+                id="qty" 
+                type="number"
+                onChange={handleChange}
+              />
+            </Col>
+            <Col xs="auto" className="my-1">
+              <Button onClick={() => {
+                handleStockBuy(stockQuote, quantity.current);
+                setStockBuyModalShow(false);
+              }}>
+                Buy
+              </Button>
+            </Col>
+            <Col xs="auto" className="my-1">
+              <Button onClick={() => setStockBuyModalShow(false)}>
+                Cancel
+              </Button>
+            </Col>
+          </Row>
+        </Form>
       </Modal.Footer>
     </Modal>
   );

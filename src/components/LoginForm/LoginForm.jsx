@@ -37,7 +37,7 @@ export default function LoginForm({ setUser }) {
           <Form.Control
             type="email"
             name="email"
-            placeholder="Enter email"
+            // placeholder="Enter email"
             value={credentials.email}
             onChange={handleChange}
             autoComplete="on"
@@ -50,7 +50,7 @@ export default function LoginForm({ setUser }) {
           <Form.Control
             type="password"
             name="password"
-            placeholder="Password"
+            // placeholder="Password"
             value={credentials.password}
             onChange={handleChange}
             autoComplete="on"

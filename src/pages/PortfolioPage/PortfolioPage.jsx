@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
 import PurchaseListItem from "../../components/PurchaseListItem/PurchaseListItem"
 import { Accordion } from "react-bootstrap";
 
-export default function PortfolioPage({portfolio}) {
+export default function PortfolioPage({portfolio, handleStockSell}) {
   var purchaseList = null;
   if (portfolio) {
     purchaseList = portfolio.purchases.map((purchase, idx) => {
@@ -11,6 +10,7 @@ export default function PortfolioPage({portfolio}) {
           purchase={purchase}
           idx={idx}
           key={idx}
+          handleStockSell={handleStockSell}
         />
       )
     });

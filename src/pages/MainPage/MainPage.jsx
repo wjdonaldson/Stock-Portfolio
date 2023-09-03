@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-// import * as usersService from "../../utilities/users-service"
 import * as stocksService from "../../utilities/stocks-service"
 import * as interestListService from "../../utilities/interestList-service"
 import * as portfolioService from "../../utilities/portfolios-service"
@@ -84,13 +83,22 @@ export default function MainPage() {
         buyDate: new Date()
       }
       const newPortfolio = await portfolioService.addPurchase(purchase);
-      console.error('just testing');
-      console.log(newPortfolio);
       setPortfolio(newPortfolio);
     } catch (err) {
       console.error(err.message);
     }
   }
+
+  async function handleStockSell(purchase) {
+    try {
+      let stockQuote = await stocksService.getStockQuote(purchase.stock.symbol)
+      const purchaseUpdate = {_id: purchase._id, sellPrice: stockQuote.price, sellDate: new Date()};
+      const newPortfolio = await portfolioService.updatePurchase(purchaseUpdate);
+      setPortfolio(newPortfolio);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
 
   return (
     <>
@@ -109,7 +117,10 @@ export default function MainPage() {
       </Col>
       <Col sm={12} md={4}>
         <h3>Portfolio</h3>
-        <PortfolioPage portfolio={portfolio} />
+        <PortfolioPage 
+          portfolio={portfolio}
+          handleStockSell={handleStockSell}
+        />
       </Col>
 
       { stockToBuy && 

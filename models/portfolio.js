@@ -23,7 +23,7 @@ const purchaseSchema = new Schema({
   sellPrice: {
     type: Number,
   },
-  SellDate: {
+  sellDate: {
     type : Date,
   }
 }, {
