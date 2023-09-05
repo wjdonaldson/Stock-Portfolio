@@ -31,8 +31,11 @@ async function addStock(req, res) {
   try {
     const interestList = await InterestList.findOne({user: req.user._id});
     if (!interestList) throw new Error('Not Found.');
-    interestList.stocks.push(req.body)
-    await interestList.save();
+    // look if it already exists
+    if (!interestList.stocks.includes(req.body._id)) {
+      interestList.stocks.push(req.body)
+      await interestList.save();
+    }
     await interestList.populate("stocks");
     res.json(interestList);
   } catch (err) {

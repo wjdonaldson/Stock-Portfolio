@@ -1,4 +1,4 @@
-import { Accordion, Button, Card } from "react-bootstrap";
+import { Accordion, Button } from "react-bootstrap";
 
 export default function StockSearchListItem({ stock, handleNewStockInterest, idx}) {
   return (

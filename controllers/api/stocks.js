@@ -19,7 +19,8 @@ async function show(req, res) {
   console.log('show()');
   try {
     console.log(req.params.id);
-    const stock = await InterestList.findOne({symbol: req.params.id});
+    const stock = await Stock.findOne({symbol: req.params.id});
+    console.log(stock);
     res.json(stock);
   } catch (err) {
     console.log(err);

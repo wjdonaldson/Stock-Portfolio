@@ -50,6 +50,7 @@ export default function StockBuyModal({stockBuyModalShow, setStockBuyModalShow, 
               <Form.Control 
                 id="qty" 
                 type="number"
+                min={1}
                 onChange={handleChange}
               />
             </Col>

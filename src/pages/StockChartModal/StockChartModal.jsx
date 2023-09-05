@@ -1,4 +1,4 @@
-import { VictoryChart, VictoryAxis, VictoryTheme, VictoryCandlestick, VictoryLabel, VictoryTooltip} from 'victory';
+import { VictoryChart, VictoryAxis, VictoryCandlestick, VictoryTooltip} from 'victory';
 import { Button, Modal, Row, Col } from "react-bootstrap";
 
 export default function StockQuoteModal({chartTitle, chartData, modalShow, setModalShow}) {

@@ -47,16 +47,23 @@ export default function MainPage() {
   }, []);
 
   async function handleNewStockInterest(stockSearch) {
-    let newStock = null;
-    let newStocks = null;
     try {
-      newStock = await stocksService.create(stockSearch);
-      var newStockInterestList = await interestListService.addStock(newStock);
-      newStocks = newStockInterestList.stocks;
+      console.log('******************');
+      console.log('about to getStock()');
+      console.log(stockSearch.symbol);
+      let stock = await stocksService.getStock(stockSearch.symbol);
+      console.log(stock);
+      if (!stock) {
+        console.log('Not found; trying to create');
+        stock = await stocksService.create(stockSearch);
+        console.log(stock);
+      }
+      var newStockInterestList = await interestListService.addStock(stock);
+      let newStocks = newStockInterestList.stocks;
+      setStocks(newStocks);
     } catch (e) {
       console.error(e.message);
     }
-    setStocks(newStocks);
   }
 
   async function handleDeleteStockInterest(stock) {
@@ -96,9 +103,15 @@ export default function MainPage() {
 
   async function handleStockSell(purchase) {
     try {
+      console.log('handleStockSell()');
+      console.log('purchase:');
+      console.log(purchase);
       let stockQuote = await stocksService.getStockQuote(purchase.stock.symbol)
+      console.log('stockQuote:');
+      console.log(stockQuote);
       const purchaseUpdate = {_id: purchase._id, sellPrice: stockQuote.price, sellDate: new Date()};
       const newPortfolio = await portfolioService.updatePurchase(purchaseUpdate);
+      console.log(newPortfolio);
       setPortfolio(newPortfolio);
       } catch (err) {
         console.error(err);

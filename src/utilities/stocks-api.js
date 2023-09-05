@@ -15,7 +15,7 @@ export function create(stock) {
 }
 
 export function getStock(symbol) {
-  return sendRequest(BASE_URL, "GET", symbol);
+  return sendRequest(`${BASE_URL}/${symbol}`, "GET");
 }
 
 export function getStockTimeSeriesDaily(symbol) {

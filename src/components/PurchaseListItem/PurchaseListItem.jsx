@@ -5,7 +5,9 @@ import * as stocksService from "../../utilities/stocks-service"
 export default function PurchaseListItem({ purchase, idx, handleStockSell }) {
   const [isLoading, setIsLoading] = useState(false);
   const stockQuote = useRef(null);
-  const stockIsSold = useRef(purchase.sellPrice > 0);
+  // const stockIsSold = useRef(purchase.sellPrice > 0);
+  let stockIsSold = (purchase.sellPrice > 0);
+  console.log(`stockIsSold = ${stockIsSold}`);
 
   function DtoS(dateParam) {
     if (dateParam) {
@@ -22,10 +24,12 @@ export default function PurchaseListItem({ purchase, idx, handleStockSell }) {
   });
 
   async function handleAccordionClick(evt) {
-    if (stockIsSold.current) {
+    // if (stockIsSold.current) {
+      if (stockIsSold) {
       stockQuote.current = null;
     } else {
       setIsLoading(true);
+      console.log('*** Calling API! ***');
       stocksService.getStockQuote(purchase.stock.symbol)
       .then(quote => {
         if (quote == null) {
@@ -40,24 +44,45 @@ export default function PurchaseListItem({ purchase, idx, handleStockSell }) {
   let accordionContent = (<h4>Loading...</h4>);
 
   if (!isLoading) {
+    let gainLoss = null;
+    if (stockIsSold) {
+      gainLoss = (purchase.buyPrice - purchase.sellPrice) * purchase.quantity;
+    } else {
+      if (stockQuote.current) {
+        gainLoss = (purchase.buyPrice - stockQuote.current.price) * purchase.quantity;
+      }
+    }
+    const percentage = (Math.abs(gainLoss) / purchase.buyPrice * 100).toFixed(2);
+
     accordionContent = (
     <>
       <div><b>Purchase Date:</b> {DtoS(purchase.buyDate)}</div>
       <div><b>Quantity:</b> {purchase.quantity}</div>
       <div><b>Purchase Price:</b> {USDollar.format(purchase.buyPrice)}</div>
       <div><b>Total:</b> {USDollar.format(purchase.buyPrice*purchase.quantity)}</div>
-      {stockIsSold.current ? (
+      {stockIsSold ? (
         <>
           <div><b>Sell Date:</b> {DtoS(purchase.sellDate)}</div>
           <div><b>Sell Price:</b> {purchase.sellPrice ? USDollar.format(purchase.sellPrice) : '---'}</div>
+          { gainLoss >= 0 ? (
+            <div style={{color: "green"}}><b>Gain:</b> {`${USDollar.format(gainLoss)} (${percentage}%)`}</div>
+          ) : (
+            <div style={{color: "red"}}><b>Loss:</b> {`${USDollar.format(gainLoss)} (${percentage}%)`}</div>
+          )}
         </>
       ) : (
         <>
           <div><b>Current Price:</b> {stockQuote.current ? USDollar.format(stockQuote.current.price) : '---'}</div>
+          { gainLoss >= 0 ? (
+            <div style={{color: "green"}}><b>Currently Up:</b> {`${USDollar.format(gainLoss)} (${percentage}%)`}</div>
+          ) : (
+            <div style={{color: "red"}}><b>Currently Down:</b> {`${USDollar.format(gainLoss)} (${percentage}%)`}</div>
+          )}
         </>
       )}
       <br />
-      <Button disabled={stockIsSold.current} // disable the 'Sell' button if it is already sold
+      {/* <Button disabled={stockIsSold.current} // disable the 'Sell' button if it is already sold */}
+      <Button disabled={stockIsSold} // disable the 'Sell' button if it is already sold
         className="mx-1"
         variant="primary"
         size="sm"
