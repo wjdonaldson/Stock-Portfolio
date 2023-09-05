@@ -43,7 +43,7 @@ export default function StockListItem({ stock, handleDeleteStockInterest, handle
             className="mx-1"
             variant="secondary"
             size="sm"
-            onClick={() => handleShowStockChart(stock.symbol)}
+            onClick={() => handleShowStockChart(stock)}
           >
             Chart
           </Button>

@@ -15,6 +15,7 @@ export default function MainPage() {
   const [stockChartModalShow, setStockChartModalShow] = useState(false);
   const [stockToBuy, setStockToBuy] = useState({});
   const [chartData, setChartData] = useState(null);
+  const [chartTitle, setChartTitle] = useState(null);
   const [portfolio, setPortfolio] = useState(null);
 
   useEffect(function () {
@@ -104,16 +105,16 @@ export default function MainPage() {
       }
     }
 
-    async function handleShowStockChart(symbol) {
+    async function handleShowStockChart(stockSearch) {
       try {
         if(!chartData) {
           console.log("getting chart data");
-          setChartData(await stocksService.getStockTimeSeriesDaily(symbol));
+          setChartData(await stocksService.getStockTimeSeriesDaily(stockSearch.symbol));
         } else {
           console.log("NOT getting chart data");
           setChartData(chartData);
         }
-
+        setChartTitle(`${stockSearch.symbol} - ${stockSearch.name}`)
         setStockChartModalShow(true);
       } catch (err) {
         console.error(err);
@@ -155,6 +156,7 @@ export default function MainPage() {
 
       { chartData && 
         <StockChartModal
+          chartTitle={chartTitle}
           chartData={chartData}
           modalShow={stockChartModalShow}
           setModalShow={setStockChartModalShow}

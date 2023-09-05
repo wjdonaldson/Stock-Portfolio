@@ -1,10 +1,18 @@
 # Stock Portfolio (GA SEI Project 4)
 
-Contains a description of what the app does and optional background info.
+The Stock Portfolio application allows the user to track their stock potfolio's performance. It 
+uses the Alpha Vantage API to obtain near-real-time stock price information as well as 
+historical stock performance going back 20+ years.  A user can search for stocks based on name or 
+stock ticker symbol, add stocks to their interst list, and buy stocks.  After buying a stock, a 
+user can check how much the stock has gone up or down, and then ultimately sell it.
 
 ## Screenshots
-![Main Page](ss1.png)
-![Chart Page](ss2.png)
+#### Main Page
+![Main Page](ss-main.png)
+#### Stock Quote
+![Stock Quote](ss-quote.png)
+#### Stock Chart
+![Stock Chart](ss-chart.png)
 
 ## Technologies Used
 * MERN Stack
@@ -18,13 +26,17 @@ Contains a description of what the app does and optional background info.
 
 ## Getting Started
 
-A link to the deployed app (Heroku)
+##### Deployed app (Heroku)
+https://stock-portfolio-d2c8bfa2b3c5.herokuapp.com/
 
-### Trello Board:
+##### Trello Board:
 https://trello.com/invite/b/vDOWYeIB/ATTI53d9800ea27168f8030767950fa4f9b25C1F0930/stock-portfolio-project-4
-
-### GitHub Repo:
-https://github.com/wjdonaldson/Stock-Portfolio
 
 ## Next Steps
 Planned future enhancements (icebox items).
+* Add ability to choose different time spans for the Stock Chart
+    * Week
+    * Month
+    * Year
+    * Lifetime
+* Add chart of stock performance from time of purchase to sale.

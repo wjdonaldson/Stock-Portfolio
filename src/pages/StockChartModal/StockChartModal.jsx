@@ -1,7 +1,7 @@
 import { VictoryChart, VictoryAxis, VictoryTheme, VictoryCandlestick, VictoryLabel, VictoryTooltip} from 'victory';
 import { Button, Modal, Row, Col } from "react-bootstrap";
 
-export default function StockQuoteModal({chartData, modalShow, setModalShow}) {
+export default function StockQuoteModal({chartTitle, chartData, modalShow, setModalShow}) {
   
   return (
     <Modal
@@ -12,20 +12,12 @@ export default function StockQuoteModal({chartData, modalShow, setModalShow}) {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Stock Chart
+        <Modal.Title id="contained-modal-title-vcenter" className="ms-auto">
+          {chartTitle}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <VictoryChart
-          // adding the material theme provided with Victory
-          // theme={VictoryTheme.material}
-          // domainPadding will add space to each side of VictoryBar to
-          // prevent it from overlapping the axis
-          domainPadding={20}
-        >
-          {/* <VictoryAxis tickFormat={(t) => `${t.getDate()}/${t.getMonth()}`}/>
-          <VictoryAxis dependentAxis/> */}
+        <VictoryChart domainPadding={20}>
           <VictoryAxis
             tickCount={10}
             tickFormat={(t) => new Date(t).toLocaleDateString('en-us', { month:"numeric", day:"numeric"}) } 
@@ -38,12 +30,12 @@ export default function StockQuoteModal({chartData, modalShow, setModalShow}) {
           />
           <VictoryCandlestick
             data={chartData}
-            labelComponent={<VictoryTooltip style={{ fontSize: 6}}/>}
-            labels={({ datum }) => `date: ${datum.x}
-                                    open: ${datum.open}
-                                    high: ${datum.high}
-                                    low: ${datum.low}
-                                    close: ${datum.close}`
+            labelComponent={<VictoryTooltip style={{ fontSize: 6 }}/>}
+            labels={({ datum }) => `Date: ${datum.x}
+                                    Open: ${datum.open}
+                                    High: ${datum.high}
+                                    Low: ${datum.low}
+                                    Close: ${datum.close}`
             }
             candleColors={{ positive: "green", negative: "red" }}
             />
