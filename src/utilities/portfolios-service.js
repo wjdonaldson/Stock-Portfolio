@@ -1,11 +1,7 @@
 import * as portfolioAPI from './portfolios-api';
 
 export async function getPortfolio() {
-  try {
     return await portfolioAPI.getPortfolio();
-  } catch (err) {
-    console.error(err);
-  }
 }
 
 export async function createPortfolio() {

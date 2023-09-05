@@ -32,7 +32,9 @@ async function addStock(req, res) {
     const interestList = await InterestList.findOne({user: req.user._id});
     if (!interestList) throw new Error('Not Found.');
     interestList.stocks.push(req.body)
-    res.json(await interestList.save());
+    await interestList.save();
+    await interestList.populate("stocks");
+    res.json(interestList);
   } catch (err) {
     console.error(err.message);
     res.status(400).json(err);

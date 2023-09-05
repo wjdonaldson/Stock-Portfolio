@@ -1,27 +1,29 @@
-import { Button, Card } from "react-bootstrap";
+import { Accordion, Button, Card } from "react-bootstrap";
 
-export default function StockSearchListItem({ stock, handleNewStockInterest}) {
+export default function StockSearchListItem({ stock, handleNewStockInterest, idx}) {
   return (
-    // <Card style={{ width: '25vw' }}>
-    <Card>
-      <Card.Body>
-        <Card.Title>Symbol: {stock.symbol}</Card.Title>
-        <Card.Text><b>Name:</b> {stock.name}</Card.Text>
-          {/* <div><b>Type:</b> {stock.type}</div>
+    <Accordion.Item eventKey={`${idx}`}>
+      <Accordion.Header>
+        <span>
+          <div><b>Symbol:</b> {stock.symbol}</div>
+          <div><b>Name:</b> {stock.name}</div>
+        </span>
+      </Accordion.Header>
+      <Accordion.Body>
+          <div><b>Type:</b> {stock.type}</div>
           <div><b>Region:</b> {stock.region}</div>
-          <p>marketOpen: {stock.marketOpen}</p>
-          <p>marketClose: {stock.marketClose}</p>
-          <p>timezone: {stock.timezone}</p>
-          <p>currency: {stock.currency}</p>
-          <p>matchScore: {stock.matchScore}</p> */}
-        <Button 
-          size="sm"
-          variant="primary"
-          onClick={() => handleNewStockInterest(stock)}
-        >
-          Select
-        </Button>
-      </Card.Body>
-    </Card>
-  );
+          <div><b>marketOpen:</b> {stock.marketOpen}</div>
+          <div><b>marketClose:</b> {stock.marketClose}</div>
+          <div><b>timezone:</b> {stock.timezone}</div>
+          <div><b>currency:</b> {stock.currency}</div>
+          <Button 
+            size="sm"
+            variant="primary"
+            onClick={() => handleNewStockInterest(stock)}
+          >
+            Select
+          </Button>
+      </Accordion.Body>
+    </Accordion.Item>
+  )
 }

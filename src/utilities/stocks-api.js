@@ -17,3 +17,7 @@ export function create(stock) {
 export function getStock(symbol) {
   return sendRequest(BASE_URL, "GET", symbol);
 }
+
+export function getStockTimeSeriesDaily(symbol) {
+  return sendRequest(`${BASE_API_URL}function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${process.env.API_KEY}`)
+}

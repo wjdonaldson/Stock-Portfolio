@@ -1,25 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import StockSearchForm from "../../components/StockSearchForm/StockSearchForm"
 import StockSearchList from "../../components/StockSearchList/StockSearchList"
 
 export default function StockSearchPage({handleNewStockInterest}) {
   const [searchStocks, setSearchStocks] = useState(null);
-  // const [activeStock, setActiveStock] = useState(null);
-
-  // useEffect(function () {
-  //   if (activeStock) {
-  //     handleNewStockInterest(activeStock);
-  //   }
-  // }, [activeStock]);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <>
-      <StockSearchForm setSearchStocks={setSearchStocks} />
-      {searchStocks && 
-      <StockSearchList 
-        searchStocks={searchStocks} 
-        handleNewStockInterest={handleNewStockInterest}
-      />}
+      <StockSearchForm
+        setSearchStocks={setSearchStocks}
+        setIsLoading={setIsLoading}
+      />
+      {isLoading ? (
+        <h2>Loading...</h2>
+      ) : (
+        searchStocks && 
+          <StockSearchList 
+          searchStocks={searchStocks} 
+          handleNewStockInterest={handleNewStockInterest}
+          />
+      )}
     </>
   );
 }

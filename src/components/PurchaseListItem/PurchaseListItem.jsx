@@ -1,23 +1,11 @@
 import { Accordion, Button } from "react-bootstrap";
-import { useRef, useState, useEffect } from "react"
+import { useRef, useState } from "react"
 import * as stocksService from "../../utilities/stocks-service"
 
 export default function PurchaseListItem({ purchase, idx, handleStockSell }) {
   const [isLoading, setIsLoading] = useState(false);
   const stockQuote = useRef(null);
-  const stockIsSold = useRef(false);
-
-  useEffect(function () {
-    console.log(purchase);
-    if (purchase.sellPrice > 0) {
-      console.log('Stock IS sold!')
-      console.log(purchase.sellPrice);
-      stockIsSold.current = true;
-    } else {
-      console.log('Stock IS NOT sold?')
-      console.log(purchase.sellPrice);
-    }
-  }, []);
+  const stockIsSold = useRef(purchase.sellPrice > 0);
 
   function DtoS(dateParam) {
     if (dateParam) {
@@ -40,8 +28,9 @@ export default function PurchaseListItem({ purchase, idx, handleStockSell }) {
       setIsLoading(true);
       stocksService.getStockQuote(purchase.stock.symbol)
       .then(quote => {
-        console.log('Got Quote:');
-        console.log(quote);
+        if (quote == null) {
+          alert("Couldn't get current price. Please try again later.");
+        }
         stockQuote.current = quote;
         setIsLoading(false);
       });
@@ -64,7 +53,7 @@ export default function PurchaseListItem({ purchase, idx, handleStockSell }) {
         </>
       ) : (
         <>
-          <div><b>Current Price:</b> {stockQuote.current ? USDollar.format(stockQuote.current.price) : 'Loading!'}</div>
+          <div><b>Current Price:</b> {stockQuote.current ? USDollar.format(stockQuote.current.price) : '---'}</div>
         </>
       )}
       <br />
@@ -84,7 +73,11 @@ export default function PurchaseListItem({ purchase, idx, handleStockSell }) {
     <>
       <Accordion.Item eventKey={`${idx}`}>
         <Accordion.Header>
-          <b>{purchase.stock.symbol}</b> - {purchase.stock.name}
+        <span>
+          <div><b>Symbol:</b> {purchase.stock.symbol}</div>
+          <div><b>Name:</b> {purchase.stock.name}</div>
+        </span>
+        {/* <span><b>{purchase.stock.symbol}</b> - {purchase.stock.name}</span> */}
         </Accordion.Header>
         <Accordion.Body
           onEntering={handleAccordionClick}

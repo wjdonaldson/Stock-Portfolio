@@ -3,7 +3,7 @@ import * as stocksService from "../../utilities/stocks-service"
 import StockQuoteModal from "../StockQuoteModal/StockQuoteModal";
 import { Button, Card } from "react-bootstrap";
 
-export default function StockListItem({ stock, activeStock, setActiveStock, handleDeleteStockInterest, handleShowStockBuy }) {
+export default function StockListItem({ stock, handleDeleteStockInterest, handleShowStockBuy, handleShowStockChart }) {
   const [modalShow, setModalShow] = useState(false);
   const [stockQuote, setStockQuote] = useState({});
 
@@ -38,6 +38,14 @@ export default function StockListItem({ stock, activeStock, setActiveStock, hand
             onClick={() => handleStockQuote(stock.symbol)}
           >
             Quote
+          </Button>
+          <Button 
+            className="mx-1"
+            variant="secondary"
+            size="sm"
+            onClick={() => handleShowStockChart(stock.symbol)}
+          >
+            Chart
           </Button>
           <Button 
             className="mx-1"

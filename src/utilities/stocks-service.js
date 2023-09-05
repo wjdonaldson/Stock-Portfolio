@@ -2,6 +2,13 @@ import * as stocksAPI from './stocks-api';
 
 export async function getStockQuote(symbol) {
   const stockQuote = await stocksAPI.getStockQuote(symbol);
+  if (stockQuote.Note) {
+    return null;
+  }
+  if (stockQuote.Information) {
+    console.log(stockQuote.Information);
+    return null;
+  }
   const stock = {
         symbol: stockQuote["Global Quote"]["01. symbol"],
         open: stockQuote["Global Quote"]["02. open"],
@@ -19,6 +26,15 @@ export async function getStockQuote(symbol) {
 
 export async function search(searchTerm) {
   const searchResults = await stocksAPI.search(searchTerm);
+  if (searchResults.Note) {
+    console.log(searchResults.Note);
+    return null;
+  }
+  if (searchResults.Information) {
+    console.log(searchResults.Information);
+    return null;
+  }
+  console.log(searchResults);
   var retVal = searchResults.bestMatches.map(resultStock => {
     return {
         symbol: resultStock["1. symbol"],
@@ -38,15 +54,34 @@ export async function search(searchTerm) {
 }
 
 export async function getStock(symbol) {
-  const stock = await stocksAPI.getStock(symbol);
-  if (stock) {
-    return stock;
-  }
+  return await stocksAPI.getStock(symbol);
 }
 
 export async function create(stock) {
-  const newStock = await stocksAPI.create(stock);
-  if (newStock) {
-    return newStock;
+  return await stocksAPI.create(stock);
+}
+
+export async function getStockTimeSeriesDaily(symbol) {
+  const results = await stocksAPI.getStockTimeSeriesDaily(symbol);
+  if (results.Note) {
+    console.log(results.Note);
+    return null;
   }
+  if (results.Information) {
+    console.log(results.Information);
+    return null;
+  }
+  var resultData = [];
+  for (const [key, value] of Object.entries(results["Time Series (Daily)"])) {
+    var resultDay = {
+      x: key,
+      open: value["1. open"],
+      high: value["2. high"],
+      low: value["3. low"],
+      close: value["4. close"]
+    };
+    resultData.push(resultDay);
+  }
+  // just return the last 30 days and reverse the order so they are newest last
+  return resultData.slice(0, 30).reverse();
 }
