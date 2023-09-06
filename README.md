@@ -40,4 +40,4 @@ Planned future enhancements (icebox items).
     * Year
     * Lifetime
 * Add chart of stock performance from time of purchase to sale.
-* Handle forein currencies properly
+* Handle foreign currencies properly
