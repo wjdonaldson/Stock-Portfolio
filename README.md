@@ -30,7 +30,7 @@ user can check how much the stock has gone up or down, and then ultimately sell 
 https://stock-portfolio-d2c8bfa2b3c5.herokuapp.com/
 
 ##### Trello Board:
-https://trello.com/invite/b/vDOWYeIB/ATTI53d9800ea27168f8030767950fa4f9b25C1F0930/stock-portfolio-project-4
+https://trello.com/b/vDOWYeIB/stock-portfolio-project-4
 
 ## Next Steps
 Planned future enhancements (icebox items).
