@@ -2,7 +2,7 @@ import { Accordion, Button } from "react-bootstrap";
 
 export default function StockSearchListItem({ stock, handleNewStockInterest, idx}) {
   return (
-    <Accordion.Item eventKey={`${idx}`}>
+    <Accordion.Item className="mb-2" eventKey={`${idx}`}>
       <Accordion.Header>
         <span>
           <div><b>Symbol:</b> {stock.symbol}</div>

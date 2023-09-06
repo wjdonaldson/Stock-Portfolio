@@ -1,6 +1,5 @@
 import { Component } from "react";
 import { signUp } from "../../utilities/users-service";
-
 import { Button, Form } from "react-bootstrap";
 
 export default class SignUpForm extends Component {
@@ -82,7 +81,7 @@ export default class SignUpForm extends Component {
               required
             />
           </Form.Group>
-          <Button variant="primary" type="submit" disabled={disable}>
+          <Button className="mt-4" variant="primary" type="submit" disabled={disable}>
             Submit
           </Button>
         </Form>

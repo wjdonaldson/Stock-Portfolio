@@ -18,8 +18,7 @@ export default function StockListItem({ stock, handleDeleteStockInterest, handle
 
   return (
     <>
-      {/* <Card style={{ width: '25vw' }}> */}
-      <Card>
+      <Card className="mb-1">
         <Card.Body>
           <Card.Title>Symbol: {stock.symbol}</Card.Title>
           <Card.Text><b>Name:</b> {stock.name}</Card.Text>

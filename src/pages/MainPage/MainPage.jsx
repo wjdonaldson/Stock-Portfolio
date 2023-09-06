@@ -7,7 +7,7 @@ import PortfolioPage from "../PortfolioPage/PortfolioPage";
 import StockList from "../../components/StockList/StockList";
 import StockBuyModal from "../../components/StockBuyModal/stockBuyModal";
 import StockChartModal from "../StockChartModal/StockChartModal";
-import { Col } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 
 export default function MainPage() {
   const [stocks, setStocks] = useState([]);
@@ -48,15 +48,9 @@ export default function MainPage() {
 
   async function handleNewStockInterest(stockSearch) {
     try {
-      console.log('******************');
-      console.log('about to getStock()');
-      console.log(stockSearch.symbol);
       let stock = await stocksService.getStock(stockSearch.symbol);
-      console.log(stock);
       if (!stock) {
-        console.log('Not found; trying to create');
         stock = await stocksService.create(stockSearch);
-        console.log(stock);
       }
       var newStockInterestList = await interestListService.addStock(stock);
       let newStocks = newStockInterestList.stocks;
@@ -103,15 +97,9 @@ export default function MainPage() {
 
   async function handleStockSell(purchase) {
     try {
-      console.log('handleStockSell()');
-      console.log('purchase:');
-      console.log(purchase);
       let stockQuote = await stocksService.getStockQuote(purchase.stock.symbol)
-      console.log('stockQuote:');
-      console.log(stockQuote);
       const purchaseUpdate = {_id: purchase._id, sellPrice: stockQuote.price, sellDate: new Date()};
       const newPortfolio = await portfolioService.updatePurchase(purchaseUpdate);
-      console.log(newPortfolio);
       setPortfolio(newPortfolio);
       } catch (err) {
         console.error(err);
@@ -120,13 +108,7 @@ export default function MainPage() {
 
     async function handleShowStockChart(stockSearch) {
       try {
-        if(!chartData) {
-          console.log("getting chart data");
-          setChartData(await stocksService.getStockTimeSeriesDaily(stockSearch.symbol));
-        } else {
-          console.log("NOT getting chart data");
-          setChartData(chartData);
-        }
+        setChartData(await stocksService.getStockTimeSeriesDaily(stockSearch.symbol));
         setChartTitle(`${stockSearch.symbol} - ${stockSearch.name}`)
         setStockChartModalShow(true);
       } catch (err) {
@@ -135,12 +117,13 @@ export default function MainPage() {
     }
 
     return (
-    <>
-      <Col sm={12} md={4}>
+    <Container className="bg-body-tertiary">
+      <Row>
+      <Col sm={12} md={4} className="mt-4">
         <StockSearchPage handleNewStockInterest={handleNewStockInterest} />
       </Col>
 
-      <Col sm={12} md={4}>
+      <Col sm={12} md={4} className="mt-4">
         <h3>Interest List</h3>
         <StockList 
           stocks={stocks} 
@@ -150,7 +133,7 @@ export default function MainPage() {
         />
       </Col>
 
-      <Col sm={12} md={4}>
+      <Col sm={12} md={4} className="mt-4">
         <h3>Portfolio</h3>
         <PortfolioPage 
           portfolio={portfolio}
@@ -175,6 +158,7 @@ export default function MainPage() {
           setModalShow={setStockChartModalShow}
         />
       }
-    </>
+      </Row>
+    </Container>
   );
 }

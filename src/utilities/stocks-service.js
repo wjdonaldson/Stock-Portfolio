@@ -6,7 +6,6 @@ export async function getStockQuote(symbol) {
     return null;
   }
   if (stockQuote.Information) {
-    console.log(stockQuote.Information);
     return null;
   }
   const stock = {
@@ -27,14 +26,11 @@ export async function getStockQuote(symbol) {
 export async function search(searchTerm) {
   const searchResults = await stocksAPI.search(searchTerm);
   if (searchResults.Note) {
-    console.log(searchResults.Note);
     return null;
   }
   if (searchResults.Information) {
-    console.log(searchResults.Information);
     return null;
   }
-  console.log(searchResults);
   var retVal = searchResults.bestMatches.map(resultStock => {
     return {
         symbol: resultStock["1. symbol"],
@@ -64,11 +60,9 @@ export async function create(stock) {
 export async function getStockTimeSeriesDaily(symbol) {
   const results = await stocksAPI.getStockTimeSeriesDaily(symbol);
   if (results.Note) {
-    console.log(results.Note);
     return null;
   }
   if (results.Information) {
-    console.log(results.Information);
     return null;
   }
   var resultData = [];

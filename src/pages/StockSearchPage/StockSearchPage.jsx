@@ -8,6 +8,7 @@ export default function StockSearchPage({handleNewStockInterest}) {
 
   return (
     <>
+      <h3>Search Stocks</h3>
       <StockSearchForm
         setSearchStocks={setSearchStocks}
         setIsLoading={setIsLoading}

@@ -10,7 +10,6 @@ export function createInterestList() {
 }
 
 export function addStock(stock) {
-  console.log(stock);
   return sendRequest(`${BASE_URL}/add-stock`, "POST", stock)
 }
 

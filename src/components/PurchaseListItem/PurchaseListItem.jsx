@@ -5,10 +5,8 @@ import * as stocksService from "../../utilities/stocks-service"
 export default function PurchaseListItem({ purchase, idx, handleStockSell }) {
   const [isLoading, setIsLoading] = useState(false);
   const stockQuote = useRef(null);
-  // const stockIsSold = useRef(purchase.sellPrice > 0);
   let stockIsSold = (purchase.sellPrice > 0);
-  console.log(`stockIsSold = ${stockIsSold}`);
-
+  
   function DtoS(dateParam) {
     if (dateParam) {
       const dt = new Date(dateParam);
@@ -24,12 +22,10 @@ export default function PurchaseListItem({ purchase, idx, handleStockSell }) {
   });
 
   async function handleAccordionClick(evt) {
-    // if (stockIsSold.current) {
       if (stockIsSold) {
       stockQuote.current = null;
     } else {
       setIsLoading(true);
-      console.log('*** Calling API! ***');
       stocksService.getStockQuote(purchase.stock.symbol)
       .then(quote => {
         if (quote == null) {
@@ -46,13 +42,13 @@ export default function PurchaseListItem({ purchase, idx, handleStockSell }) {
   if (!isLoading) {
     let gainLoss = null;
     if (stockIsSold) {
-      gainLoss = (purchase.buyPrice - purchase.sellPrice) * purchase.quantity;
+      gainLoss = (purchase.sellPrice - purchase.buyPrice) * purchase.quantity;
     } else {
       if (stockQuote.current) {
-        gainLoss = (purchase.buyPrice - stockQuote.current.price) * purchase.quantity;
+        gainLoss = (stockQuote.current.price - purchase.buyPrice) * purchase.quantity;
       }
     }
-    const percentage = (Math.abs(gainLoss) / purchase.buyPrice * 100).toFixed(2);
+    const percentage = (Math.abs(gainLoss) / purchase.buyPrice / purchase.quantity * 100).toFixed(2);
 
     accordionContent = (
     <>
@@ -81,7 +77,6 @@ export default function PurchaseListItem({ purchase, idx, handleStockSell }) {
         </>
       )}
       <br />
-      {/* <Button disabled={stockIsSold.current} // disable the 'Sell' button if it is already sold */}
       <Button disabled={stockIsSold} // disable the 'Sell' button if it is already sold
         className="mx-1"
         variant="primary"
@@ -96,13 +91,12 @@ export default function PurchaseListItem({ purchase, idx, handleStockSell }) {
 
   return (
     <>
-      <Accordion.Item eventKey={`${idx}`}>
+      <Accordion.Item className="mb-2" eventKey={`${idx}`}>
         <Accordion.Header>
         <span>
           <div><b>Symbol:</b> {purchase.stock.symbol}</div>
           <div><b>Name:</b> {purchase.stock.name}</div>
         </span>
-        {/* <span><b>{purchase.stock.symbol}</b> - {purchase.stock.name}</span> */}
         </Accordion.Header>
         <Accordion.Body
           onEntering={handleAccordionClick}

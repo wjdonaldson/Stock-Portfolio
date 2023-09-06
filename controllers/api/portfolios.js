@@ -10,7 +10,6 @@ module.exports = {
 async function create(req, res) {
   try {
     const portfolio = await Portfolio.create({user: req.user._id, purchases: []});
-    console.log(portfolio);
     res.json(portfolio);
   } catch (err) {
     res.status(400).json(err);
@@ -21,10 +20,7 @@ async function create(req, res) {
 async function show(req, res) {
   try {
     const portfolio = await Portfolio.findOne({user: req.user._id}).populate("purchases purchases.stock");
-    console.log(portfolio);
     if (portfolio) {
-      console.log("Got portfolio!");
-      console.log(portfolio);
     } else {
       console.error("Couldn't get portfolio!");
     }
@@ -38,15 +34,9 @@ async function show(req, res) {
 async function addPurchase(req, res) {
   try {
     const portfolio = await Portfolio.findOne({user: req.user._id});
-    // console.log('addPurchase() portfolio found:');
-    // console.log(portfolio);
     if (!portfolio) throw new Error('Portfolio Not Found.');
-    // console.log('addPurchase() purchase to add:');
-    // console.log(req.body);
     portfolio.purchases.push(req.body);
     let newPortfolio = await portfolio.save();
-    // console.log('addPurchase() retVal:');
-    // console.log(retVal);
     await newPortfolio.populate("purchases.stock");
     res.json(newPortfolio);
   } catch (err) {
@@ -65,7 +55,7 @@ async function updatePurchase(req, res) {
     portfolio.purchases[purchaseIdx].set({...req.body});
     res.json(await portfolio.save());
   } catch (err) {
-    console.log(err.message);
+    console.error(err.message);
     res.status(400).json(err);
   }
 }
