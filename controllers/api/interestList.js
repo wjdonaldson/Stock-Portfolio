@@ -9,7 +9,12 @@ module.exports = {
 
 async function create(req, res) {
   try {
-    const interestList = await InterestList.create({user: req.user._id, stocks: []});
+    // we don't want to allow 2 interst lists for a user, so check if there is one already
+    // and return that if there is
+    let interestList = await InterestList.findOne({user: req.user._id}).populate("stocks");
+    if (!interestList) {
+      interestList = await InterestList.create({user: req.user._id, stocks: []});
+    }
     res.json(interestList);
   } catch (err) {
     console.error(err.message);
@@ -19,7 +24,10 @@ async function create(req, res) {
 
 async function show(req, res) {
   try {
-    const interestList = await InterestList.findOne({user: req.user._id}).populate("stocks");
+    let interestList = await InterestList.findOne({user: req.user._id}).populate("stocks");
+    if (!interestList) {
+      interestList = await InterestList.create({user: req.user._id, stocks: []});
+    }
     res.json(interestList);
   } catch (err) {
     console.error(err.message);

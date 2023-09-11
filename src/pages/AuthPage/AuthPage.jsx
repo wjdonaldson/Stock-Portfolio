@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Button, Col } from 'react-bootstrap';
+import { Button, Col, Row } from 'react-bootstrap';
 
 import SignUpForm from '../../components/SignUpForm/SignUpForm';
 import LoginForm from '../../components/LoginForm/LoginForm';
@@ -9,12 +9,12 @@ export default function AuthPage({ setUser }) {
   const [showSignUp, setShowSignUp] = useState(false);
   return (
     <>
-    <row>
+    <Row>
     <Col md={{span: 3, offset: 5}}>
         {showSignUp ? (<h1 className="mt-4">Sign Up Page</h1>) : (<h1 className="mt-4">Login Page</h1>)}
     </Col>
-    </row>
-    <row>
+    </Row>
+    <Row>
     <Col md={{span: 6, offset: 3}}  className="AuthPage" style={{"height": 500}}>
       <div className="me-auto">
         <Button className="py-3" variant="info" onClick={() => setShowSignUp(!showSignUp)}> 
@@ -30,7 +30,7 @@ export default function AuthPage({ setUser }) {
         }
       </div>
     </Col>
-    </row>
+    </Row>
     </>
   );
 }

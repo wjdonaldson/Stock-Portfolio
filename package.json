@@ -22,7 +22,7 @@
     "victory": "^36.6.11"
   },
   "scripts": {
-    "start": "node server",
+    "start": "node sever",
     "build": "react-scripts --max_old_space_size=4096 build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

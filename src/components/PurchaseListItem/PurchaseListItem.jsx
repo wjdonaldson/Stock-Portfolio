@@ -22,7 +22,7 @@ export default function PurchaseListItem({ purchase, idx, handleStockSell }) {
   });
 
   async function handleAccordionClick(evt) {
-      if (stockIsSold) {
+    if (stockIsSold) {
       stockQuote.current = null;
     } else {
       setIsLoading(true);

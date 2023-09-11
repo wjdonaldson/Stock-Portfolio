@@ -59,7 +59,8 @@ export default function LoginForm({ setUser }) {
           Submit
         </Button>
       </Form>
-      <p className="error-message">&nbsp;{error}</p>
+      <br/>
+      <p className="error-message">&nbsp;<b>{error}</b></p>
     </>
   );
 }
